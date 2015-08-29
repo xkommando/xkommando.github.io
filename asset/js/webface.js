@@ -46,3 +46,13 @@ var headroom = new window.Headroom(
 // 初始化
 headroom.init();
 
+
+$(function() {
+
+    $("#btn_submit").click(function (e) {
+        e.preventDefault();
+        alert("Excuse me, submit function not implemented yet!");
+        $(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
+    });
+
+});
