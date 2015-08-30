@@ -1,0 +1,72 @@
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: baiduspider
+Disallow: /
+
+User-agent: Baiduspider-image
+Disallow: /
+
+User-agent: Baiduspider-video
+Disallow: /
+
+User-agent: Baiduspider-news
+Disallow: /
+
+User-agent: Baiduspider-favo
+Disallow: /
+
+User-agent: Baiduspider-cpro
+Disallow: /
+
+User-agent: Baiduspider-ads
+Disallow: /
+
+User-agent: YoudaoBot
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
+
+User-agent: Sogou blog
+Disallow: /
+
+User-agent: Sogou spider2
+Disallow: /
+
+User-agent: Sogou inst spider
+Disallow: /
+
+User-agent: Sogou News Spider
+Disallow: /
+
+User-agent: Sogou Orion spider
+Disallow: /
+
+User-agent: Sosospider
+Disallow: /
+
+User-agent: PangusoSpider
+Disallow: /
+
+User-agent: yisouspider
+Disallow: /
+
+User-agent: EasouSpider
+Disallow: /
+
+User-agent: *
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /async/
+Disallow: /cron/
+Disallow: /cmd/
+Disallow: /api/
+Disallow: /temp/
+Disallow: /msg/
+Disallow: /reserved/
+
+
+Crawl-delay: 10
+
