@@ -98,15 +98,26 @@
 .txtcolor-white {
     color: #ffffff;
 }
+
+
 /**********************************/
 
-.bgcolor-dark  {
+.bg-navfoot {
+    background-color: #2C3E50;
+}
+.navbar-default {
+    border-color: transparent;
+}
+.bg-projects  {
     background: #3e444d;
 }
 
-.navbar-default {
-    border-color: transparent;
-    background-color: #2C3E50;
+.bg-about {
+    background-color: #18bc9c;
+}
+
+.bg-error {
+    background-color: #f1f1f1;
 }
 
 /*.navbar-default {*/
@@ -208,7 +219,6 @@ header .container {
 
 #about {
     color: #fff;
-    background-color: #18bc9c;
 }
 
 .avatar {
@@ -311,7 +321,6 @@ hr {
 footer {
     color: #fff;
     padding: 25px 0;
-    background-color: #2C3E50;
 }
 
 /* form*/

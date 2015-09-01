@@ -49,9 +49,14 @@ headroom.init();
 
 $(function() {
 
+    $("#contact_form").change(function() {
+        alert("Stop there! the message function is not ready yet.");
+        $(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
+    });
+
     $("#btn_submit").click(function (e) {
         e.preventDefault();
-        alert("Excuse me, submit function not implemented yet!");
+        alert("Oops, submit function not implemented yet!");
         $(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
     });
 
