@@ -47,17 +47,73 @@ var headroom = new window.Headroom(
 headroom.init();
 
 
+var encodeQueryData = function (map) {
+    var ret = [];
+    for (var d in map)
+        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
+    return ret.join("&");
+};
+
 $(function() {
 
-    $("#contact_form").change(function() {
-        alert("Stop there! the message function is not ready yet.");
-        $(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
+
+    $("input,select,textarea").jqBootstrapValidation({
+        preventSubmit: true,
+        submitError: function ($form, e, errors) {
+            // additional error messages or events
+        },
+        submitSuccess: function ($form, e) {
+            $("#btn_submit").attr("disabled", true);
+            e.preventDefault();
+
+            var cta_name = $("input#cta_name").val();
+            var cta_email = $("input#cta_email").val();
+            var cta_msg = $("textarea#cta_message").val();
+
+            var params = {
+                "cta_name":cta_name,
+                "cta_email": cta_email,
+                "cta_msg":cta_msg
+            };
+            var query = encodeQueryData(params);
+            //$.get( "http://webface-backend.appspot.com/api/support/contact", query)
+            $.get( "http://localhost:8080/api/support/contact", query)
+                .done(function( data ) {
+                    alert( "Mail Sended: " + data );
+                });
+        },
+        filter: function() {
+            return $(this).is(":visible");
+        }
     });
 
-    $("#btn_submit").click(function (e) {
-        e.preventDefault();
-        alert("Oops, submit function not implemented yet!");
-        $(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
-    });
+
+    //$("#contact_form").change(function() {
+    //    alert("Stop there! the message function is not ready yet.");
+    //    $(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
+    //});
+    //
+    //$("#btn_submit").click(function (e) {
+    //    e.preventDefault();
+    //
+    //    var cta_name = $("input#cta_name").val();
+    //    var cta_email = $("input#cta_email").val();
+    //    var cta_msg = $("textarea#cta_message").val();
+    //
+    //    var params = {
+    //        "cta_name":cta_name,
+    //        "cta_email": cta_email,
+    //        "cta_msg":cta_msg
+    //    };
+    //    var query = encodeQueryData(params);
+    //    //$.get( "http://webface-backend.appspot.com/api/support/contact", query)
+    //    $.get( "http://localhost:8080/api/support/contact", query)
+    //        .done(function( data ) {
+    //            alert( "Mail Sended: " + data );
+    //        });
+    //
+    //    //alert("Oops, submit function not implemented yet!");
+    //    //$(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
+    //});
 
 });

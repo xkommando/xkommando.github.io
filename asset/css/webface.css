@@ -113,7 +113,7 @@
 }
 
 .bg-about {
-    background-color: #18bc9c;
+    background-color: #eee;
 }
 
 .bg-error {
@@ -134,17 +134,6 @@
     border-color: rgba(255, 255, 255, .12);
 }
 
-/*.navbar-default .navbar-brand {*/
-/*font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;*/
-/*color: #fed136;*/
-/*}*/
-
-/*.navbar-default .navbar-brand:hover,*/
-/*.navbar-default .navbar-brand:focus,*/
-/*.navbar-default .navbar-brand:active,*/
-/*.navbar-default .navbar-brand.active {*/
-/*color: #fec503;*/
-/*}*/
 
 .navbar-default .navbar-toggle {
     border-color: #777;
@@ -184,7 +173,6 @@
 
 header {
     text-align: center;
-    color: #fff;
     background: transparent none scroll center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -196,7 +184,10 @@ header .container {
     padding-top: 80px;
     padding-bottom: 50px;
 }
-
+.navbar-fixed-top .navbar-brand {
+    font-size: 2em;
+    margin-top: 5px;
+}
 @media(min-width:768px) {
 
     .navbar-default {
@@ -214,11 +205,11 @@ header .container {
     /*.navbar-default .navbar-nav>.active>a {*/
         /*border-radius: 3px;*/
     /*}*/
+    .navbar-fixed-top .navbar-brand {
+        font-size: 1.5em;
+        margin-top: 3px;
+    }
 
-}
-
-#about {
-    color: #fff;
 }
 
 .avatar {
