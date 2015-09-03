@@ -81,6 +81,8 @@ $(function() {
                 .done(function( data ) {
                     alert( "Mail Sended: " + data );
                 });
+
+            $('#contact_form').trigger("reset");
         },
         filter: function() {
             return $(this).is(":visible");
