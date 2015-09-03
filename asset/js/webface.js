@@ -88,32 +88,4 @@ $(function() {
     });
 
 
-    //$("#contact_form").change(function() {
-    //    alert("Stop there! the message function is not ready yet.");
-    //    $(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
-    //});
-    //
-    //$("#btn_submit").click(function (e) {
-    //    e.preventDefault();
-    //
-    //    var cta_name = $("input#cta_name").val();
-    //    var cta_email = $("input#cta_email").val();
-    //    var cta_msg = $("textarea#cta_message").val();
-    //
-    //    var params = {
-    //        "cta_name":cta_name,
-    //        "cta_email": cta_email,
-    //        "cta_msg":cta_msg
-    //    };
-    //    var query = encodeQueryData(params);
-    //    //$.get( "http://webface-backend.appspot.com/api/support/contact", query)
-    //    $.get( "http://localhost:8080/api/support/contact", query)
-    //        .done(function( data ) {
-    //            alert( "Mail Sended: " + data );
-    //        });
-    //
-    //    //alert("Oops, submit function not implemented yet!");
-    //    //$(this).closest('form').find("input[type=text],input[type=email], textarea").val("");
-    //});
-
 });
