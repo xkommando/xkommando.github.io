@@ -76,8 +76,8 @@ $(function() {
                 "cta_msg":cta_msg
             };
             var query = encodeQueryData(params);
-            //$.get( "http://webface-backend.appspot.com/api/support/contact", query)
-            $.get( "http://localhost:8080/api/support/contact", query)
+            $.get( "http://webface-backend.appspot.com/api/support/contact", query)
+            //$.get( "http://localhost:8080/api/support/contact", query)
                 .done(function( data ) {
                     alert( "Mail Sended: " + data );
                 });
