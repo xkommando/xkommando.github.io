@@ -15,16 +15,46 @@
 
     <link rel="icon" type="image/ico" href=""/>
 
-    <link rel="stylesheet" href="asset/css/bootstrap.css"/> <!-- CDN min -->
-    <link rel="stylesheet" href="asset/css/font-awesome.css" /> <!-- CDN min -->
+    <link rel="stylesheet" href="asset/css/bootstrap.min.css"/> <!-- CDN min -->
+    <link rel="stylesheet" href="asset/css/font-awesome.min.css" /> <!-- CDN min -->
+    <link rel="stylesheet" href="asset/css/ladda.min.css"/>
     <link rel="stylesheet" href="asset/css/webface.css"> <!-- inline -->
 
     <script type="text/javascript">
-        if(self != top) {
-            top.location = self.location;
-        }
-        var lang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
 
+        var Status = {
+            lang : navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+        };
+        function init() {
+            // 1. avoid CMCC hijacking
+            if(self != top) {
+                top.location = self.location;
+            }
+
+            // 2. get self location
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.timeout = 4000;
+            xmlHttp.ontimeout = function() {
+                //  withing the GWF
+                Status.location = null
+            };
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    var location = {};
+                    try {
+                        location = JSON.parse(xmlHttp.responseText);
+                    } catch (e) {
+                        // within the GWF
+                        location = null;
+                    }
+                    Status.location = location;
+                }
+            };
+            xmlHttp.open("GET", "http://webface-backend.appspot.com/api/location", true); // true for asynchronous
+            xmlHttp.send(null);
+        }
+
+        init();
     </script>
 
     <title>Bowen Cai - Phd Candidate at Texas A&M </title>
@@ -214,7 +244,7 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Message</label>
-                            <textarea rows="5" class="form-control" placeholder="Message" id="cta_message" required
+                            <textarea rows="4" class="form-control" placeholder="Message" id="cta_message" required
                                       data-validation-required-message="Please enter your message."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
@@ -224,7 +254,10 @@
                     <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
-                            <button type="submit" id="btn_submit" class="btn btn-primary btn-lg center-block">Send</button>
+                            <button type="submit" id="btn_submit"
+                                    class="ladda-button center-block" data-style="expand-right">
+                                <span class="ladda-label">Send</span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -232,7 +265,6 @@
         </div>
     </div>
 </section>
-
 
 <footer class="text-center bg-navfoot">
     <div class="container">
@@ -251,16 +283,26 @@
     </a>
 </div>
 
+<div id="modal_send" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h4 id="modal_msg"></h4>
+        </div>
+    </div>
+</div>
+
 
 </body>
 
 <script type="application/javascript" src="asset/js/jquery-1.8.3.js"></script> <!-- CDN min -->
 
 <script type="application/javascript" src="asset/js/jquery.easing.1.3.js"></script>
-<script type="application/javascript" src="asset/js/bootstrap.js"></script> <!-- CDN min -->
+<script type="application/javascript" src="asset/js/bootstrap.min.js"></script> <!-- CDN min -->
 
 <script type="application/javascript" src="asset/js/headroom.js"></script> <!-- inline -->
 <script type="application/javascript" src="asset/js/jqBootstrapValidation.js"></script>
+<script type="application/javascript" src="asset/js/spin.min.js"></script>
+<script type="application/javascript" src="asset/js/ladda.min.js"></script>
 
 <script type="application/javascript" src="asset/js/webface.js"></script> <!-- inline -->
 

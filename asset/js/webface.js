@@ -1,6 +1,7 @@
 
 
 
+
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
     $('body').on('click', '.page-scroll a', function(event) {
@@ -30,8 +31,6 @@ $('body').scrollspy({
 
 // cache
 var $root = $('html, body');
-
-//创建 Headroom 对象，将页面元素传递进去
 var headroom = new window.Headroom(
     document.getElementById("wf_nav"), {
     "tolerance": 5,
@@ -42,9 +41,12 @@ var headroom = new window.Headroom(
         "unpinned": "slideUp"
     }
 });
-
-// 初始化
 headroom.init();
+
+
+var btn_send = document.getElementById("btn_submit");
+
+var lad_send = Ladda.create(btn_send);
 
 
 var encodeQueryData = function (map) {
@@ -63,7 +65,9 @@ $(function() {
             // additional error messages or events
         },
         submitSuccess: function ($form, e) {
-            $("#btn_submit").attr("disabled", true);
+            lad_send.start();
+            //btn_send.attr("disabled", true);
+
             e.preventDefault();
 
             var cta_name = $("input#cta_name").val();
@@ -73,16 +77,40 @@ $(function() {
             var params = {
                 "cta_name":cta_name,
                 "cta_email": cta_email,
-                "cta_msg":cta_msg
+                "cta_message":cta_msg
             };
             var query = encodeQueryData(params);
-            $.get( "http://webface-backend.appspot.com/api/support/contact", query)
-            //$.get( "http://localhost:8080/api/support/contact", query)
-                .done(function( data ) {
-                    alert( "Mail Sended: " + data );
-                });
 
-            $('#contact_form').trigger("reset");
+            $.ajax({
+                //url: "http://webface-backend.appspot.com/api/support/contact",
+                url:"http://localhost:8080/api/support/contact",
+                data: query,
+                timeout: 8000,
+                success: function( data ) {
+                    var prompt = $("#modal_msg");
+                    if (data == 200) {
+                        prompt.text("Thanks for your message, I will reply to you soon.");
+                    } else {
+                        if (data < 500) {
+                            prompt.text("Oops, could send the message, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
+                        } else {
+                            prompt.text("Server error, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
+                        }
+                    }
+
+                    $("#modal_send").modal();
+
+                    //$('#contact_form').find("input[type=text],input[type=email], textarea").val("");
+                    $('#contact_form').trigger("reset");
+                    lad_send.stop();
+                },
+                error: function(data) {
+                    alert( "Failed: " + data );
+                    $('#contact_form').trigger("reset");
+                    lad_send.stop();
+                }
+            });
+
         },
         filter: function() {
             return $(this).is(":visible");

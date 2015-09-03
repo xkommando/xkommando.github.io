@@ -314,6 +314,9 @@ footer {
     padding: 25px 0;
 }
 
+.modal-content {
+    padding: 20px;
+}
 /* form*/
 .floating-label-form-group {
     position: relative;
