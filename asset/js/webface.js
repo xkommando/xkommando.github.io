@@ -82,8 +82,8 @@ $(function() {
             var query = encodeQueryData(params);
 
             $.ajax({
-                //url: "http://webface-backend.appspot.com/api/support/contact",
-                url:"http://localhost:8080/api/support/contact",
+                url: "http://webface-backend.appspot.com/api/support/contact",
+                // url:"http://localhost:8080/api/support/contact",
                 data: query,
                 timeout: 8000,
                 success: function( data ) {
