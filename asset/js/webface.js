@@ -58,7 +58,6 @@ var encodeQueryData = function (map) {
 
 $(function() {
 
-
     $("input,select,textarea").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function ($form, e, errors) {
@@ -73,6 +72,11 @@ $(function() {
             var cta_name = $("input#cta_name").val();
             var cta_email = $("input#cta_email").val();
             var cta_msg = $("textarea#cta_message").val();
+            cta_msg = cta_msg.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
 
             var params = {
                 "cta_name":cta_name,
@@ -83,7 +87,7 @@ $(function() {
 
             $.ajax({
                 url: "http://webface-backend.appspot.com/api/support/contact",
-                // url:"http://localhost:8080/api/support/contact",
+                //url:"http://localhost:8080/api/support/contact",
                 data: query,
                 timeout: 8000,
                 success: function( data ) {
@@ -105,8 +109,8 @@ $(function() {
                     lad_send.stop();
                 },
                 error: function(data) {
-                    alert( "Failed: " + data );
-                    $('#contact_form').trigger("reset");
+                    prompt.text("Oops, failed to send message due to network error<p>plase contact <a href='mailto:feedback2bowen@outlook.com'> for help</p>  </a>");
+                    $("#modal_send").modal();
                     lad_send.stop();
                 }
             });

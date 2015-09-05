@@ -25,33 +25,31 @@
         var Status = {
             lang : navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
         };
+
         function init() {
-            // 1. avoid CMCC hijacking
-            if(self != top) {
+            // 1. avoid hijacking from ISPs (namely, CMCC, China Telecom)
+            if (self != top) {
                 top.location = self.location;
             }
 
-            // 2. get self location
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.timeout = 4000;
-            xmlHttp.ontimeout = function() {
-                //  withing the GWF
+            var req = new XMLHttpRequest();
+            req.timeout = 4000;
+            req.ontimeout = function() {
                 Status.location = null
             };
-            xmlHttp.onreadystatechange = function () {
-                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            req.onreadystatechange = function() {
+                if (req.readyState == 4 && req.status == 200) {
                     var location = {};
                     try {
-                        location = JSON.parse(xmlHttp.responseText);
+                        location = JSON.parse(req.responseText);
                     } catch (e) {
-                        // within the GWF
                         location = null;
                     }
                     Status.location = location;
                 }
             };
-            xmlHttp.open("GET", "http://webface-backend.appspot.com/api/location", true); // true for asynchronous
-            xmlHttp.send(null);
+            req.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface", true); // true for asynchronous
+            req.send(null);
         }
 
         init();
@@ -215,7 +213,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Leave A Message</h2>
+                <h2 id="contact_title">Leave A Message</h2>
                 <hr class="star-primary">
             </div>
         </div>
