@@ -1,7 +1,5 @@
 
 
-
-
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
     $('body').on('click', '.page-scroll a', function(event) {
@@ -94,12 +92,10 @@ $(function() {
                     var prompt = $("#modal_msg");
                     if (data == 200) {
                         prompt.text("Thanks for your message, I will reply to you soon.");
+                    } else if (data < 500) {
+                        prompt.text("Oops, could send the message, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
                     } else {
-                        if (data < 500) {
-                            prompt.text("Oops, could send the message, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
-                        } else {
-                            prompt.text("Server error, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
-                        }
+                        prompt.text("Server error, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
                     }
 
                     $("#modal_send").modal();
