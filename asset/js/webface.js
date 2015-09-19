@@ -1,94 +1,155 @@
 
+var Webface = {
+    status: {
+        lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+    },
+    localLang: null,
+    geti18nURL : function (lang) {
+        var langCode = lang.substr(0, 2).toLowerCase();
+        var areaCode = lang.substr(3, 99).toLowerCase();
+        if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
+            if (areaCode == "cn" || areaCode == "sg" || areaCode == "chs" || areaCode == "")
+                return "asset/i18n/zh-chs.json";
+            else
+                return "asset/i18n/zh-cht.json";
+        }
+        return null;
+    },
+
+    localize: function() {
+        var lang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+        status.lang = lang;
+        var url = Webface.geti18nURL(lang);
+        if (url) {
+            $.get(url, function(data) {
+                if (!(data.length === undefined || jQuery.isFunction(data)))
+                    data = JSON.parse(data);
+                Webface.localLang = data;
+                $('.i18n-txt').each(
+                    function() {
+                        var key = $(this).attr("data-i18n-key");
+                        if (key) {
+                            var localPhrase = Webface.localLang[key];
+                            if (localPhrase)
+                                $(this).html(localPhrase);
+                        }
+                    }
+                );
+            });
+        }
+    },
+
+    init : function() {
+        // 1. avoid hijacking from ISPs, namely, CMCC, China Telecom
+        if (self != top) {
+            top.location = self.location;
+        }
+
+        Webface.localize();
+
+        var req = new XMLHttpRequest();
+        req.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface", true); // true for asynchronous
+        req.timeout = 4000;
+        req.ontimeout = function () {
+            Webface.status.location = null
+        };
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                try {
+                    var data = req.responseText;
+                    if (!(data.length === undefined || jQuery.isFunction(data))) {
+                        data = JSON.parse(data);
+                    }
+                    Webface.status.location = data;
+                } catch (e) {
+                    Webface.status.location = null;
+                }
+            }
+        };
+        req.send(null);
+    },
+
+    encodeQueryData: function (map) {
+        var ret = [];
+        for (var d in map)
+            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
+        return ret.join("&");
+    },
+
+    escapeHTML: function(str) {
+        str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+    }
+};
+
+Webface.init();
+
+$(function () {
+
+// cache
+    var $body = $('body');
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
-$(function() {
-    $('body').on('click', '.page-scroll a', function(event) {
+    $body.on('click', '.page-scroll a', function (event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
             scrollTop: $($anchor.attr('href')).offset().top
         }, 1500, 'easeInOutExpo');
         event.preventDefault();
     });
-});
+
+    new window.Headroom(
+        document.getElementById("wf_nav"), {
+            "tolerance": 5,
+            "offset": 80,
+            "classes": {
+                "initial": "animated",
+                "pinned": "slideDown",
+                "unpinned": "slideUp"
+            }
+        }).init();
 
 // Floating label headings for the contact form
-$(function() {
-    $("body").on("input propertychange", ".floating-label-form-group", function(e) {
-        $(this).toggleClass("floating-label-form-group-with-value", !! $(e.target).val());
-    }).on("focus", ".floating-label-form-group", function() {
+    $body.on("input propertychange", ".floating-label-form-group", function (e) {
+        $(this).toggleClass("floating-label-form-group-with-value", !!$(e.target).val());
+    }).on("focus", ".floating-label-form-group", function () {
         $(this).addClass("floating-label-form-group-with-focus");
-    }).on("blur", ".floating-label-form-group", function() {
+    }).on("blur", ".floating-label-form-group", function () {
         $(this).removeClass("floating-label-form-group-with-focus");
     });
-});
 
-// Highlight the top nav as scrolling occurs
-$('body').scrollspy({
-    target: '.navbar-fixed-top'
-});
-
-// cache
-var $root = $('html, body');
-var headroom = new window.Headroom(
-    document.getElementById("wf_nav"), {
-    "tolerance": 5,
-    "offset": 80,
-    "classes": {
-        "initial": "animated",
-        "pinned": "slideDown",
-        "unpinned": "slideUp"
-    }
-});
-headroom.init();
-
-
-var btn_send = document.getElementById("btn_submit");
-
-var lad_send = Ladda.create(btn_send);
-
-
-var encodeQueryData = function (map) {
-    var ret = [];
-    for (var d in map)
-        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
-    return ret.join("&");
-};
-
-$(function() {
-
+    var lad_send = Ladda.create(document.getElementById("btn_submit"));
     $("input,select,textarea").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function ($form, e, errors) {
             // additional error messages or events
         },
         submitSuccess: function ($form, e) {
+            e.preventDefault();
             lad_send.start();
             //btn_send.attr("disabled", true);
 
-            e.preventDefault();
 
             var cta_name = $("input#cta_name").val();
             var cta_email = $("input#cta_email").val();
-            var cta_msg = $("textarea#cta_message").val();
-            cta_msg = cta_msg.replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            var cta_msg = Webface.escapeHTML($("textarea#cta_message").val());
 
             var params = {
-                "cta_name":cta_name,
+                "cta_name": cta_name,
                 "cta_email": cta_email,
-                "cta_message":cta_msg
+                "cta_message": cta_msg
             };
-            var query = encodeQueryData(params);
+            var query = Webface.encodeQueryData(params);
 
             $.ajax({
                 url: "http://webface-backend.appspot.com/api/support/contact",
                 //url:"http://localhost:8080/api/support/contact",
                 data: query,
                 timeout: 8000,
-                success: function( data ) {
+                success: function (data) {
                     var prompt = $("#modal_msg");
                     if (data == 200) {
                         prompt.text("Thanks for your message, I will reply to you soon.");
@@ -104,7 +165,7 @@ $(function() {
                     $('#contact_form').trigger("reset");
                     lad_send.stop();
                 },
-                error: function(data) {
+                error: function (data) {
                     prompt.text("Oops, failed to send message due to network error<p>plase contact <a href='mailto:feedback2bowen@outlook.com'> for help</p>  </a>");
                     $("#modal_send").modal();
                     lad_send.stop();
@@ -112,7 +173,7 @@ $(function() {
             });
 
         },
-        filter: function() {
+        filter: function () {
             return $(this).is(":visible");
         }
     });

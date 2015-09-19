@@ -6,6 +6,14 @@
 .top-buffer-40 {
     margin-top: 40px;
 }
+.borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
+    border: none;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
 
 /* windows 8 color */
 
@@ -171,8 +179,12 @@
     background-color: #000;
 }
 
+.navbar-fixed-top .navbar-brand {
+    font-size: 2em;
+    margin-top: 5px;
+}
+
 header {
-    text-align: center;
     background: transparent none scroll center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -184,10 +196,8 @@ header .container {
     padding-top: 80px;
     padding-bottom: 50px;
 }
-.navbar-fixed-top .navbar-brand {
-    font-size: 2em;
-    margin-top: 5px;
-}
+
+
 @media(min-width:768px) {
 
     .navbar-default {
@@ -198,7 +208,7 @@ header .container {
     }
 
     header .container {
-        padding-top: 160px;
+        padding-top: 150px;
         padding-bottom: 100px;
     }
 
@@ -221,7 +231,7 @@ header .container {
     border: 5px solid rgba(255, 255, 255, 0.5);
 }
 
-p {
+p, address {
     font-size: 18px;
 }
 
