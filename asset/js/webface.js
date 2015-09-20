@@ -147,8 +147,8 @@ $(function () {
             var title;
             var msg;
             $.ajax({
-                // url: "http://webface-backend.appspot.com/api/support/contact",
-                url:"http://localhost:8080/api/support/contact",
+                url: "http://webface-backend.appspot.com/api/support/contact",
+                // url:"http://localhost:8080/api/support/contact",
                 data: query,
                 timeout: 8000,
                 success: function (data) {
@@ -171,7 +171,7 @@ $(function () {
                     title = Webface.localLang["contactMsg-error-title"] || "Oops, could send the message.";
                     promptModalTitle.html(title);
 
-                    msg = Webface.localLang["net-error-msg"] || "network error plase check your connection, <p> Or contact me for help <a href='mailto:feedback2bowen@outlook.com'> feedback2bowen@outlook.com </a></p>";
+                    msg = Webface.localLang["net-error-msg"] || "network error plase check your connection, <br> Or contact me for help <a href='mailto:feedback2bowen@outlook.com'> feedback2bowen@outlook.com </a>";
                     promptModalMsg.html(msg);
 
                     $("#modal_send").modal();
