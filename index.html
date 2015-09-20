@@ -88,7 +88,7 @@
                     <p class="i18n-txt" data-i18n-key="intro-p2"><a href="https://parasol.tamu.edu/people/jeff/"> Dr. Jeff Huang </a>
                         in the <a href="https://parasol.tamu.edu/groups/huangroup"> ASER Group</a>
                         of the <a href="https://parasol.tamu.edu/"> Parasol Lab</a>, I work with.</p>
-                    <p class="i18n-txt" data-i18n-key="intro-p3">Program analysis and software engineering are my research interests.</p>
+                    <p class="i18n-txt" data-i18n-key="intro-p3">Program analysis and software engineering, my research interests are.</p>
 
                     <address class="top-buffer-20 i18n-txt" data-i18n-key="intro-addr">
                         Tel:	(979)???<br>
@@ -255,10 +255,17 @@
     </a>
 </div>
 
-<div id="modal_send" class="modal fade"  tabindex="-1" role="dialog">
+<div id="modal_send" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <h4 id="modal_msg"></h4>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal_title"></h4>
+            </div>
+            <div class="modal-body">
+                <h5 id="modal_msg"></h5>
+            </div>
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@ var Webface = {
     status: {
         lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
     },
-    localLang: null,
+    localLang: {},
     geti18nURL : function (lang) {
         var langCode = lang.substr(0, 2).toLowerCase();
         var areaCode = lang.substr(3, 99).toLowerCase();
@@ -77,7 +77,7 @@ var Webface = {
     },
 
     escapeHTML: function(str) {
-        str.replace(/&/g, "&amp;")
+        return str.replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
@@ -124,49 +124,56 @@ $(function () {
     var lad_send = Ladda.create(document.getElementById("btn_submit"));
     $("input,select,textarea").jqBootstrapValidation({
         preventSubmit: true,
-        submitError: function ($form, e, errors) {
-            // additional error messages or events
-        },
+        //submitError: function ($form, e, errors) {
+        //    // additional error messages or events
+        //},
         submitSuccess: function ($form, e) {
             e.preventDefault();
             lad_send.start();
             //btn_send.attr("disabled", true);
 
-
             var cta_name = $("input#cta_name").val();
             var cta_email = $("input#cta_email").val();
-            var cta_msg = Webface.escapeHTML($("textarea#cta_message").val());
-
+            var cta_msg = Webface.escapeHTML($("#cta_message").val());
             var params = {
                 "cta_name": cta_name,
                 "cta_email": cta_email,
                 "cta_message": cta_msg
             };
             var query = Webface.encodeQueryData(params);
+            var promptModalTitle = $("#modal_title");
+            var promptModalMsg = $("#modal_msg");
 
+            var title;
+            var msg;
             $.ajax({
                 url: "http://webface-backend.appspot.com/api/support/contact",
                 //url:"http://localhost:8080/api/support/contact",
                 data: query,
                 timeout: 8000,
                 success: function (data) {
-                    var prompt = $("#modal_msg");
                     if (data == 200) {
-                        prompt.text("Thanks for your message, I will reply to you soon.");
-                    } else if (data < 500) {
-                        prompt.text("Oops, could send the message, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
+                        title = Webface.localLang["contactMsg-200-title"] || "Message Sent Successfully.";
+                        promptModalTitle.html(title);
+                        msg = Webface.localLang["contactMsg-200-msg"] || "Thanks for your message, I will reply to you soon.";
+                        promptModalMsg.html(msg);
                     } else {
-                        prompt.text("Server error, plase contact <a href='mailto:feedback2bowen@outlook.com'> </a>");
+                        title = Webface.localLang["contactMsg-error-title"] || "Oops, could send the message.";
+                        promptModalTitle.html(title);
+                        msg = Webface.localLang["contactMsg-error-msg"] || "plase contact me via <a href=\"mailto:feedback2bowen@outlook.com\">feedback2bowen@outlook.com</a>.";
+                        promptModalMsg.html(msg);
                     }
-
                     $("#modal_send").modal();
-
-                    //$('#contact_form').find("input[type=text],input[type=email], textarea").val("");
                     $('#contact_form').trigger("reset");
                     lad_send.stop();
                 },
                 error: function (data) {
-                    prompt.text("Oops, failed to send message due to network error<p>plase contact <a href='mailto:feedback2bowen@outlook.com'> for help</p>  </a>");
+                    title = Webface.localLang["contactMsg-error-title"] || "Oops, could send the message.";
+                    promptModalTitle.html(title);
+
+                    msg = Webface.localLang["net-error-msg"] || "network error plase check your connection, <p> Or contact me for help <a href='mailto:feedback2bowen@outlook.com'> feedback2bowen@outlook.com </a></p>";
+                    promptModalMsg.html(msg);
+
                     $("#modal_send").modal();
                     lad_send.stop();
                 }
