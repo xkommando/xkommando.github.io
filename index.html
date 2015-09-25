@@ -50,13 +50,8 @@
                         true); // true for asynchronous
                 // do not wait for respnse, as some request comes from behind the GWF
                 reqLoc.onreadystatechange = function () {
-                    if (reqLoc.readyState == 4 && reqLoc.status == 200) {
-                        var data = reqLoc.responseText;
-                        if (!(data.length === undefined || jQuery.isFunction(data))) {
-                            data = JSON.parse(data);
-                        }
-                        Webface.location = data;
-                    }
+                    if (reqLoc.readyState == 4 && reqLoc.status == 200)
+                        Webface.location = JSON.parse(reqLoc.responseText);
                 };
                 reqLoc.send(null);
 

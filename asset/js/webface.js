@@ -1,5 +1,4 @@
 Webface.localize = function () {
-    console.log("func: localize  " + Webface.localLang);
     if (Webface.localLang) {
         $('.i18n-txt').each(function () {
             var key = $(this).attr("data-i18n-key");
