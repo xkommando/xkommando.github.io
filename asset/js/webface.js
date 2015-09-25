@@ -1,95 +1,40 @@
-
-var Webface = {
-    status: {
-        lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
-    },
-    localLang: {},
-    geti18nURL : function (lang) {
-        var langCode = lang.substr(0, 2).toLowerCase();
-        var areaCode = lang.substr(3, 99).toLowerCase();
-        if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
-            if (areaCode == "cn" || areaCode == "sg" || areaCode == "chs" || areaCode == "")
-                return "asset/i18n/zh-chs.json";
-            else
-                return "asset/i18n/zh-cht.json";
-        }
-        return null;
-    },
-
-    localize: function() {
-        var lang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
-        status.lang = lang;
-        var url = Webface.geti18nURL(lang);
-        if (url) {
-            $.get(url, function(data) {
-                if (!(data.length === undefined || jQuery.isFunction(data)))
-                    data = JSON.parse(data);
-                Webface.localLang = data;
-                $('.i18n-txt').each(
-                    function() {
-                        var key = $(this).attr("data-i18n-key");
-                        if (key) {
-                            var localPhrase = Webface.localLang[key];
-                            if (localPhrase)
-                                $(this).html(localPhrase);
-                        }
-                    }
-                );
-            });
-        }
-    },
-
-    init : function() {
-        // 1. avoid hijacking from ISPs, namely, CMCC, China Telecom
-        if (self != top) {
-            top.location = self.location;
-        }
-
-        Webface.localize();
-
-        var req = new XMLHttpRequest();
-        req.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface", true); // true for asynchronous
-        req.timeout = 4000;
-        req.ontimeout = function () {
-            Webface.status.location = null
-        };
-        req.onreadystatechange = function () {
-            if (req.readyState == 4 && req.status == 200) {
-                try {
-                    var data = req.responseText;
-                    if (!(data.length === undefined || jQuery.isFunction(data))) {
-                        data = JSON.parse(data);
-                    }
-                    Webface.status.location = data;
-                } catch (e) {
-                    Webface.status.location = null;
-                }
+Webface.localize = function () {
+    console.log("func: localize  " + Webface.localLang);
+    if (Webface.localLang) {
+        $('.i18n-txt').each(function () {
+            var key = $(this).attr("data-i18n-key");
+            if (key) {
+                var localPhrase = Webface.localLang[key];
+                if (localPhrase)
+                    $(this).html(localPhrase);
             }
-        };
-        req.send(null);
-    },
-
-    encodeQueryData: function (map) {
-        var ret = [];
-        for (var d in map)
-            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
-        return ret.join("&");
-    },
-
-    escapeHTML: function(str) {
-        return str.replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;")
+        });
+        $(".i18n-txt-p").each(function () {
+            var key = $(this).attr("data-i18n-key");
+            if (key) {
+                var localPhrase = Webface.localLang[key];
+                if (localPhrase)
+                    $(this).attr("placeholder", localPhrase);
+            }
+        });
     }
 };
-
-Webface.init();
-
-$(function () {
-
-// cache
+Webface.encodeQueryData = function (map) {
+    var ret = [];
+    for (var d in map)
+        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
+    return ret.join("&");
+};
+Webface.escapeHTML = function (str) {
+    return str.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+};
+//$(document).load(
+$( document ).ready(function() {
+// cached
     var $body = $('body');
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
@@ -148,7 +93,7 @@ $(function () {
             var msg;
             $.ajax({
                 url: "http://webface-backend.appspot.com/api/support/contact",
-                // url:"http://localhost:8080/api/support/contact",
+                //url:"http://localhost:8080/api/support/contact",
                 data: query,
                 timeout: 8000,
                 success: function (data) {
@@ -171,7 +116,7 @@ $(function () {
                     title = Webface.localLang["contactMsg-error-title"] || "Oops, could send the message.";
                     promptModalTitle.html(title);
 
-                    msg = Webface.localLang["net-error-msg"] || "network error plase check your connection, <br> Or contact me for help <a href='mailto:feedback2bowen@outlook.com'> feedback2bowen@outlook.com </a>";
+                    msg = Webface.localLang["net-error-msg"] || "network error plase check your connection, <p> Or contact me for help <a href='mailto:feedback2bowen@outlook.com'> feedback2bowen@outlook.com </a></p>";
                     promptModalMsg.html(msg);
 
                     $("#modal_send").modal();
@@ -184,6 +129,4 @@ $(function () {
             return $(this).is(":visible");
         }
     });
-
-
 });

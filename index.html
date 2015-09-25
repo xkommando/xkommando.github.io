@@ -21,6 +21,59 @@
     <link rel="stylesheet" href="asset/css/webface.css"> <!-- inline -->
 
     <title class="i18n-txt" data-i18n-key="page-title">Bowen Cai - Phd Student at Texas A&amp;M </title>
+
+    <script>
+        var Webface = {
+            status: {
+                lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+            },
+//            localLang: {}, set by jsonp
+            // the i18n files are store on CDN, not on any dynamic server.
+            geti18nURL: function (lang) {
+                var langCode = lang.substr(0, 2).toLowerCase();
+                var areaCode = lang.substr(3, 99).toLowerCase();
+                if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
+                    if (areaCode == "cn" || areaCode == "sg" || areaCode == "chs" || areaCode == "")
+                        return "asset/i18n/zh-chs.js";
+                    else
+                        return "asset/i18n/zh-cht.js";
+                }
+                return null;
+            },
+            init : function() {
+                // 1. avoid hijacking from ISPs, namely, CMCC, China Telecom
+                if (self != top) {
+                    top.location = self.location;
+                }
+                var reqLoc = new XMLHttpRequest();
+                reqLoc.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",
+                        true); // true for asynchronous
+                // do not wait for respnse, as some request comes from behind the GWF
+                reqLoc.onreadystatechange = function () {
+                    if (reqLoc.readyState == 4 && reqLoc.status == 200) {
+                        var data = reqLoc.responseText;
+                        if (!(data.length === undefined || jQuery.isFunction(data))) {
+                            data = JSON.parse(data);
+                        }
+                        Webface.location = data;
+                    }
+                };
+                reqLoc.send(null);
+
+                var url = Webface.geti18nURL(Webface.status.lang);
+                if (url) {
+                    var script = document.createElement('script');
+                    script.setAttribute('src', url);
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                }
+                window.onload = function() {
+                    Webface.localize();
+                }
+            }
+        };
+        Webface.init();
+    </script>
+
 </head>
 
 <body id="body-top" >
@@ -91,8 +144,8 @@
                     <p class="i18n-txt" data-i18n-key="intro-p3">Program analysis and software engineering, my research interests are.</p>
 
                     <address class="top-buffer-20 i18n-txt" data-i18n-key="intro-addr">
-                        Tel:	(979)???<br>
-                        Email:	???@tamu.edu<br>
+                        Tel:	<i> Website currently under construction </i><br>
+                        Email:	 <i> Website currently under construction </i><br>
                         Office:	427A HRBB<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         College Station, TX 77843-3112, USA
@@ -198,8 +251,8 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label class="i18n-txt" data-i18n-key="contact-name">Name</label>
-                            <input type="text" class="form-control" placeholder="Name" id="cta_name" required
-                                   data-validation-required-message="Please enter your name.">
+                            <input type="text" class="form-control i18n-txt-p" placeholder="Name" id="cta_name" required
+                                   data-validation-required-message="Please enter your name." data-i18n-key="contact-name">
 
                             <p class="help-block text-danger"></p>
                         </div>
@@ -207,8 +260,8 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label class="i18n-txt" data-i18n-key="contact-email">Email Address</label>
-                            <input type="email" class="form-control" placeholder="Email Address" id="cta_email"
-                                   required data-validation-required-message="Please enter your email address.">
+                            <input type="email" class="form-control i18n-txt-p" placeholder="Email Address" id="cta_email"
+                                   required data-validation-required-message="Please enter your email address." data-i18n-key="contact-email">
 
                             <p class="help-block text-danger"></p>
                         </div>
@@ -216,8 +269,8 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label class="i18n-txt" data-i18n-key="contact-msg">Message</label>
-                            <textarea rows="4" class="form-control" placeholder="Message" id="cta_message" required
-                                      data-validation-required-message="Please enter your message."></textarea>
+                            <textarea rows="4" class="form-control i18n-txt-p" placeholder="Message" id="cta_message" required
+                                      data-validation-required-message="Please enter your message." data-i18n-key="contact-msg"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -242,7 +295,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 i18n-txt" data-i18n-key="footer-copyright">
-                Copyright &copy; Bowen Cai 2015
+                Copyright &copy; Bowen Cai 2013 - 2015
             </div>
         </div>
     </div>
