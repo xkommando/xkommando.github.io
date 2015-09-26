@@ -31,11 +31,10 @@ Webface.escapeHTML = function (str) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;")
 };
-//$(document).load(
+
 $( document ).ready(function() {
 // cached
     var $body = $('body');
-
 // jQuery for page scrolling feature - requires jQuery Easing plugin
     $body.on('click', '.page-scroll a', function (event) {
         var $anchor = $(this);
@@ -55,7 +54,6 @@ $( document ).ready(function() {
                 "unpinned": "slideUp"
             }
         }).init();
-
 // Floating label headings for the contact form
     $body.on("input propertychange", ".floating-label-form-group", function (e) {
         $(this).toggleClass("floating-label-form-group-with-value", !!$(e.target).val());
