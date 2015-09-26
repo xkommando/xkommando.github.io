@@ -1,244 +1,343 @@
 <!DOCTYPE html>
-<html xmlns=http://www.w3.org/1999/xhtml lang=en manifest>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" manifest="">
+<!--manifest="html5cache.txt"-->
 <head>
-<meta charset="UTF-8"/>
-<meta http-equiv=X-UA-Compatible content="IE=edge"/>
-<meta name=viewport content="width=device-width, initial-scale=1"/>
-<meta name=description content="Home Page for Bowen Cai, Phd Student at Texas A&amp;M University"/>
-<meta name=author content="Bowen Cai"/>
-<meta property=og:site_name content="Bowen Cai's Home Page"/>
-<meta property=og:locale content="en_US"/>
-<link rel=dns-prefetch href=http://ajax.aspnetcdn.com>
-<link rel=dns-prefetch href=http://cdnjs.cloudflare.com>
-<link rel=stylesheet href=http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css>
-<link rel=stylesheet href=http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css />
-<link rel=stylesheet href="asset/css/ladda.min.css"/>
-<link rel=stylesheet href=asset/css/webface.min.css>
-<title class=i18n-txt data-i18n-key=page-title>Bowen Cai - Phd Student at Texas A&amp;M </title>
-<script>var Webface={status:{lang:navigator.languages?navigator.languages[0]:(navigator.language||navigator.userLanguage)},geti18nURL:function(b){var c=b.substr(0,2).toLowerCase();var a=b.substr(3,99).toLowerCase();if(c=="zh"||c=="chi"||c=="zho"){if(a=="cn"||a=="sg"||a=="chs"||a==""){return"asset/i18n/zh-chs.js"}else{return"asset/i18n/zh-cht.js"}}return null},init:function(){if(self!=top){top.location=self.location}var c=new XMLHttpRequest();c.open("GET","http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",true);c.onreadystatechange=function(){if(c.readyState==4&&c.status==200){Webface.location=JSON.parse(c.responseText)}};c.send(null);var b=Webface.geti18nURL(Webface.status.lang);if(b){var a=document.createElement("script");a.setAttribute("src",b);document.getElementsByTagName("head")[0].appendChild(a)}window.onload=function(){Webface.localize()}}};Webface.init();</script>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Home Page for Bowen Cai, Phd Student at Texas A&amp;M University"/>
+    <meta name="author" content="Bowen Cai"/>
+
+    <meta property="og:site_name" content="Bowen Cai's Home Page"/>
+    <meta property="og:locale" content="en_US"/>
+
+    <link rel="dns-prefetch" href="http://ajax.aspnetcdn.com">
+    <link rel="dns-prefetch" href="http://cdnjs.cloudflare.com">
+    <!--<link rel="prefetch" href=""/>-->
+    <!--<link rel="icon" type="image/ico" href=""/>-->
+
+    <!--<link rel="stylesheet" href="asset/css/bootstrap.min.css"/> &lt;!&ndash; CDN min &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="asset/css/font-awesome.min.css" /> &lt;!&ndash; CDN min &ndash;&gt;-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="asset/css/ladda.min.css"/> <!-- merge -->
+    <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- merge -->
+
+    <title class="i18n-txt" data-i18n-key="page-title">Bowen Cai - Phd Student at Texas A&amp;M </title>
+
+    <script>
+        var Webface = {
+            status: {
+                lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+            },
+//            localLang: {}, set by jsonp
+            // the i18n files are store on CDN, not on any dynamic server.
+            geti18nURL: function (lang) {
+                var langCode = lang.substr(0, 2).toLowerCase();
+                var areaCode = lang.substr(3, 99).toLowerCase();
+                if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
+                    if (areaCode == "cn" || areaCode == "sg" || areaCode == "chs" || areaCode == "")
+                        return "asset/i18n/zh-chs.js";
+                    else
+                        return "asset/i18n/zh-cht.js";
+                }
+                return null;
+            },
+            init : function() {
+                // 1. avoid hijacking from ISPs, namely, CMCC, China Telecom
+                if (self != top)
+                    top.location = self.location;
+                var reqLoc = new XMLHttpRequest();
+                reqLoc.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",
+                        true); // true for async
+                // do not wait for response, as some request comes from behind the GWF
+                reqLoc.onreadystatechange = function () {
+                    if (reqLoc.readyState == 4 && reqLoc.status == 200)
+                        Webface.location = JSON.parse(reqLoc.responseText);
+                };
+                reqLoc.send(null);
+
+                var url = Webface.geti18nURL(Webface.status.lang);
+                if (url) {
+                    var script = document.createElement('script');
+                    script.setAttribute('src', url);
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                }
+                window.onload = function() {
+                    Webface.localize();
+                }
+            }
+        };
+        Webface.init();
+    </script>
+
 </head>
-<body id=body-top>
-<nav id=wf_nav class="navbar navbar-default navbar-fixed-top bg-navfoot">
-<div class=container>
-<div class="navbar-header page-scroll">
-<button type=button class=navbar-toggle data-toggle=collapse data-target=#wf_navbar_collapse>
-<span class=sr-only>Toggle navigation</span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-<span class=icon-bar></span>
-</button>
-<a class="navbar-brand i18n-txt" href=#body-top data-i18n-key=author-name>Bowen Cai</a>
-</div>
-<div class="collapse navbar-collapse" id=wf_navbar_collapse>
-<ul class="nav navbar-nav navbar-right">
-<li class=hidden>
-<a href=#body-top></a>
-</li>
-<li class=page-scroll data-menuanchor=about>
-<a href=#about class=i18n-txt data-i18n-key=nav-about>About</a>
-</li>
-<li class=page-scroll data-menuanchor=research>
-<a href=#research class=i18n-txt data-i18n-key=nav-research>Research</a>
-</li>
-<li class=page-scroll data-menuanchor=projects>
-<a href=#projects class=i18n-txt data-i18n-key=nav-projects>Projects</a>
-</li>
-<li class=page-scroll data-menuanchor=contact>
-<a href=#contact class=i18n-txt data-i18n-key=nav-contact>Contact</a>
-</li>
-</ul>
-</div>
-</div>
+
+<body id="body-top" >
+
+<nav id="wf_nav" class="navbar navbar-default navbar-fixed-top bg-navfoot">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#wf_navbar_collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand i18n-txt" href="#body-top" data-i18n-key="author-name">Bowen Cai</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="wf_navbar_collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden">
+                    <a href="#body-top"></a>
+                </li>
+                <li class="page-scroll" data-menuanchor="about">
+                    <a href="#about" class="i18n-txt" data-i18n-key="nav-about">About</a>
+                </li>
+
+                <li class="page-scroll" data-menuanchor="research">
+                    <a href="#research" class="i18n-txt" data-i18n-key="nav-research">Research</a>
+                </li>
+
+                <li class="page-scroll" data-menuanchor="projects">
+                    <a href="#projects" class="i18n-txt" data-i18n-key="nav-projects">Projects</a>
+                </li>
+
+                <li class="page-scroll" data-menuanchor="contact">
+                    <a href="#contact" class="i18n-txt" data-i18n-key="nav-contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
 </nav>
-<header id=about class=bg-about>
-<div class=container>
-<div class=row>
-<noscript>
-<div class="alert alert-warning text-center top-buffer i18n-txt">
-<h4>This site relies heavily on Javascript.</h4>
-<h4> You need to enable Javascript in your browser.</h4>
-</div>
-</noscript>
-<div class=col-lg-12>
-<div class="col-xs-8 col-xs-push-2 col-md-4 col-md-push-0">
-<img class="img-responsive avatar" src=asset/img/avatar.jpg alt="could not load image">
-</div>
-<div class="col-xs-12 col-md-push-1 col-md-7">
-<h3 class=i18n-txt data-i18n-key=author-name>Bowen Cai</h3>
-<p class=i18n-txt data-i18n-key=intro-p1>First year PhD student at <a href=http://www.tamu.edu/>Texas A&amp;M University</a>, I am.</p>
-<p class=i18n-txt data-i18n-key=intro-p2><a href=https://parasol.tamu.edu/people/jeff/> Dr. Jeff Huang </a>
-in the <a href=https://parasol.tamu.edu/groups/huangroup> ASER Group</a>
-of the <a href=https://parasol.tamu.edu/> Parasol Lab</a>, I work with.</p>
-<p class=i18n-txt data-i18n-key=intro-p3>Program analysis and software engineering, my research interests are.</p>
-<address class="top-buffer-20 i18n-txt" data-i18n-key=intro-addr>
-Tel: <i> Website currently under construction </i><br>
-Email: <i> Website currently under construction </i><br>
-Office: 427A HRBB<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-College Station, TX 77843-3112, USA
-</address>
-</div>
-</div>
-</div>
-</div>
+
+
+<header id="about" class="bg-about">
+    <div class="container">
+        <div class="row">
+            <noscript>
+                <div class="alert alert-warning text-center top-buffer i18n-txt">
+                    <h4>本网站使用Javascript，请打开您的浏览器的Javascript支持。</h4>
+                    <h4>This site relies heavily on Javascript.</h4>
+                    <h4> You need to enable Javascript in your browser.</h4>
+                </div>
+            </noscript>
+            <div class="col-lg-12">
+                <div class="col-xs-8 col-xs-push-2 col-md-4 col-md-push-0 ">
+                    <img class="img-responsive avatar" src="asset/img/avatar.jpg" alt="could not load image">
+                </div>
+                <div class="col-xs-12 col-md-push-1 col-md-7">
+                    <h3 class="i18n-txt" data-i18n-key="author-name">Bowen Cai</h3>
+                    <p class="i18n-txt" data-i18n-key="intro-p1">First year PhD student at <a href="http://www.tamu.edu/">Texas A&amp;M University</a>, I am.</p>
+                    <p class="i18n-txt" data-i18n-key="intro-p2"><a href="https://parasol.tamu.edu/people/jeff/"> Dr. Jeff Huang </a>
+                        in the <a href="https://parasol.tamu.edu/groups/huangroup"> ASER Group</a>
+                        of the <a href="https://parasol.tamu.edu/"> Parasol Lab</a>, I work with.</p>
+                    <p class="i18n-txt" data-i18n-key="intro-p3">Program analysis and software engineering, my research interests are.</p>
+
+                    <address class="top-buffer-20 i18n-txt" data-i18n-key="intro-addr">
+                        Tel:	<i> Website currently under construction </i><br>
+                        Email:	 <i> Website currently under construction </i><br>
+                        Office:	427A HRBB<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        College Station, TX 77843-3112, USA
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
-<section id=research>
-<div class=container>
-<div class=row>
-<div class="col-lg-12 text-center">
-<h2 class="section-heading i18n-txt" data-i18n-key=nav-research>Research</h2>
-</div>
-</div>
-<div class=row>
-<div class="col-lg-4 col-lg-offset-2">
-<p> Website currently under construction </p>
-</div>
-<div class=col-lg-4>
-<p>Website currently under construction</p>
-</div>
-<div class="col-lg-8 col-lg-offset-2 text-center">
-<a href=# class="btn btn-lg btn-outline">
-<i class="fa fa-download"></i> Download Papers
-</a>
-</div>
-</div>
-</div>
+
+<section id="research">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading i18n-txt" data-i18n-key="nav-research">Research</h2>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <p> Website currently under construction </p>
+            </div>
+            <div class="col-lg-4">
+                <p>Website currently under construction</p>
+            </div>
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <a href="#" class="btn btn-lg btn-outline">
+                    <i class="fa fa-download"></i> Download Papers
+                </a>
+            </div>
+        </div>
+    </div>
 </section>
-<section id=projects class=bg-projects>
-<div class=container>
-<div class=row>
-<div class="col-lg-12 text-center txtcolor-white">
-<h2 class="section-heading i18n-txt" data-i18n-key=nav-projects>Projects</h2>
-<h3 class="section-subheading text-muted">Website currently under construction.</h3>
-</div>
-</div>
-<div class=row>
-<div class="col-md-4 col-sm-6 portfolio-item">
-<a href=#portfolioModal1 class=portfolio-link data-toggle=modal>
-<div class=portfolio-hover>
-<div class=portfolio-hover-content>
-<i class="fa fa-search-plus fa-3x"></i>
-</div>
-</div>
-<img src=https://dl.dropboxusercontent.com/s/iklpmr1jdyktdn2/gplume_struture.jpg class=img-responsive alt>
-</a>
-<div class=portfolio-caption>
-<h4>placeholder</h4>
-<p class=text-muted>Website currently under construction</p>
-</div>
-</div>
-<div class="col-md-4 col-sm-6 portfolio-item">
-<a href=#portfolioModal2 class=portfolio-link data-toggle=modal>
-<div class=portfolio-hover>
-<div class=portfolio-hover-content>
-<i class="fa fa-search-plus fa-3x"></i>
-</div>
-</div>
-<img src=https://dl.dropboxusercontent.com/s/hrji1a2phi605x0/edit.JPG class=img-responsive alt>
-</a>
-<div class=portfolio-caption>
-<h4>placeholder</h4>
-<p class=text-muted>Website currently under construction</p>
-</div>
-</div>
-<div class="col-md-4 col-sm-6 portfolio-item">
-<a href=#portfolioModal3 class=portfolio-link data-toggle=modal>
-<div class=portfolio-hover>
-<div class=portfolio-hover-content>
-<i class="fa fa-search-plus fa-3x"></i>
-</div>
-</div>
-<img src=https://dl.dropboxusercontent.com/s/0xsqvui990n8vig/Starter_Maps.png class=img-responsive alt>
-</a>
-<div class=portfolio-caption>
-<h4>placeholder</h4>
-<p class=text-muted>Website currently under construction</p>
-</div>
-</div>
-</div>
-</div>
+
+<section id="projects" class="bg-projects">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center txtcolor-white">
+                <h2 class="section-heading i18n-txt" data-i18n-key="nav-projects">Projects</h2>
+                <h3 class="section-subheading text-muted">Website currently under construction.</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="https://dl.dropboxusercontent.com/s/iklpmr1jdyktdn2/gplume_struture.jpg" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption">
+                    <h4>placeholder</h4>
+                    <p class="text-muted">Website currently under construction</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="https://dl.dropboxusercontent.com/s/hrji1a2phi605x0/edit.JPG" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption">
+                    <h4>placeholder</h4>
+                    <p class="text-muted">Website currently under construction</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img src="https://dl.dropboxusercontent.com/s/0xsqvui990n8vig/Starter_Maps.png" class="img-responsive" alt="">
+                </a>
+                <div class="portfolio-caption">
+                    <h4>placeholder</h4>
+                    <p class="text-muted">Website currently under construction</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-<section id=contact>
-<div class=container>
-<div class=row>
-<div class="col-lg-12 text-center">
-<h2 id=contact_title class=i18n-txt data-i18n-key=contact-head>Leave A Message</h2>
-<hr>
-</div>
-</div>
-<div class=row>
-<div class="col-lg-8 col-lg-offset-2">
-<form name=sentMessage id=contact_form>
-<div class="row control-group">
-<div class="form-group col-xs-12 floating-label-form-group controls">
-<label class=i18n-txt data-i18n-key=contact-name>Name</label>
-<input type=text class="form-control i18n-txt-p" placeholder=Name id=cta_name required data-validation-required-message="Please enter your name." data-i18n-key=contact-name>
-<p class="help-block text-danger"></p>
-</div>
-</div>
-<div class="row control-group">
-<div class="form-group col-xs-12 floating-label-form-group controls">
-<label class=i18n-txt data-i18n-key=contact-email>Email Address</label>
-<input type=email class="form-control i18n-txt-p" placeholder="Email Address" id=cta_email required data-validation-required-message="Please enter your email address." data-i18n-key=contact-email>
-<p class="help-block text-danger"></p>
-</div>
-</div>
-<div class="row control-group">
-<div class="form-group col-xs-12 floating-label-form-group controls">
-<label class=i18n-txt data-i18n-key=contact-msg>Message</label>
-<textarea rows=4 class="form-control i18n-txt-p" placeholder=Message id=cta_message required data-validation-required-message="Please enter your message." data-i18n-key=contact-msg></textarea>
-<p class="help-block text-danger"></p>
-</div>
-</div>
-<br>
-<div id=success></div>
-<div class=row>
-<div class="form-group col-xs-12">
-<button type=submit id=btn_submit class="ladda-button center-block" data-style=expand-right>
-<span class="ladda-label i18n-txt" data-i18n-key=contact-submit>Send</span>
-</button>
-</div>
-</div>
-</form>
-</div>
-</div>
-</div>
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 id="contact_title" class="i18n-txt" data-i18n-key="contact-head">Leave A Message</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+
+                <form name="sentMessage" id="contact_form">
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label class="i18n-txt" data-i18n-key="contact-name">Name</label>
+                            <input type="text" class="form-control i18n-txt-p" placeholder="Name" id="cta_name" required
+                                   data-validation-required-message="Please enter your name." data-i18n-key="contact-name">
+
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label class="i18n-txt" data-i18n-key="contact-email">Email Address</label>
+                            <input type="email" class="form-control i18n-txt-p" placeholder="Email Address" id="cta_email"
+                                   required data-validation-required-message="Please enter your email address." data-i18n-key="contact-email">
+
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label class="i18n-txt" data-i18n-key="contact-msg">Message</label>
+                            <textarea rows="4" class="form-control i18n-txt-p" placeholder="Message" id="cta_message" required
+                                      data-validation-required-message="Please enter your message." data-i18n-key="contact-msg"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" id="btn_submit"
+                                    class="ladda-button center-block" data-style="expand-right">
+                                <span class="ladda-label i18n-txt" data-i18n-key="contact-submit">Send</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
+
 <footer class="text-center bg-navfoot">
-<div class=container>
-<div class=row>
-<div class="col-lg-12 i18n-txt" data-i18n-key=footer-copyright>
-Copyright &copy; Bowen Cai 2013 - 2015
-</div>
-</div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 i18n-txt" data-i18n-key="footer-copyright">
+                Copyright &copy; Bowen Cai 2013 - 2015
+            </div>
+        </div>
+    </div>
 </footer>
+
+<!-- Scroll to Top Button, Only visible on small and extra-small screen-->
 <div class="scroll-top page-scroll visible-xs visible-sm">
-<a class="btn btn-primary" href=#body-top>
-<i class="fa fa-chevron-up"></i>
-</a>
+    <a class="btn btn-primary" href="#body-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
 </div>
-<div id=modal_send class="modal fade" tabindex=-1 role=dialog>
-<div class=modal-dialog>
-<div class=modal-content>
-<div class=modal-header>
-<button type=button class=close data-dismiss=modal aria-label=Close><span aria-hidden=true>&times;</span></button>
-<h4 class=modal-title id=modal_title></h4>
+
+<div id="modal_send" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal_title"></h4>
+            </div>
+            <div class="modal-body">
+                <h5 id="modal_msg"></h5>
+            </div>
+        </div>
+    </div>
 </div>
-<div class=modal-body>
-<h5 id=modal_msg></h5>
-</div>
-</div>
-</div>
-</div>
-<script type=application/javascript src=http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js defer></script>
-<script src=http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js defer></script>
-<script type=application/javascript src=asset/js/jquery.easing.1.3.js defer></script>
-<script type=application/javascript src=http://cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.min.js defer></script>
-<script type=application/javascript src=asset/js/jqBootstrapValidation.js defer></script>
-<script type=application/javascript src=asset/js/spin.min.js defer></script>
-<script type=application/javascript src=asset/js/ladda.min.js defer></script>
-<script type=application/javascript src=asset/js/webface.min.js></script>
+
+
+<!--<script type="application/javascript" src="asset/js/jquery-1.11.3.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
+<script type="application/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<!--<script type="application/javascript" src="asset/js/bootstrap.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script type="application/javascript" src="asset/js/jquery.easing.1.3.js"></script> <!-- CDN min -->
+
+<!--<script type="application/javascript" src="asset/js/headroom.js"></script>-->
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.min.js"></script>
+
+<script type="application/javascript" src="asset/js/jqBootstrapValidation.js"></script>
+
+<script type="application/javascript" src="asset/js/spin.min.js"></script> <!-- merge -->
+<script type="application/javascript" src="asset/js/ladda.min.js"></script> <!-- merge -->
+
+<script type="application/javascript" src="asset/js/webface.min.js"></script>
+
 </body>
+
 </html>
