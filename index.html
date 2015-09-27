@@ -13,14 +13,19 @@
 
     <link rel="dns-prefetch" href="http://ajax.aspnetcdn.com">
     <link rel="dns-prefetch" href="http://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="http://maxcdn.bootstrapcdn.com">
+
     <!--<link rel="prefetch" href=""/>-->
     <!--<link rel="icon" type="image/ico" href=""/>-->
 
     <!--<link rel="stylesheet" href="asset/css/bootstrap.min.css"/> &lt;!&ndash; CDN min &ndash;&gt;-->
     <!--<link rel="stylesheet" href="asset/css/font-awesome.min.css" /> &lt;!&ndash; CDN min &ndash;&gt;-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="asset/css/ladda.min.css"/> <!-- merge -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!--<link rel="stylesheet" href="asset/css/ladda.min.css"/>-->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.css">
+
     <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- merge -->
 
     <title class="i18n-txt" data-i18n-key="page-title">Bowen Cai - Phd Student at Texas A&amp;M </title>
@@ -30,8 +35,6 @@
             status: {
                 lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
             },
-//            localLang: {}, set by jsonp
-            // the i18n files are store on CDN, not on any dynamic server.
             geti18nURL: function (lang) {
                 var langCode = lang.substr(0, 2).toLowerCase();
                 var areaCode = lang.substr(3, 99).toLowerCase();
@@ -47,24 +50,17 @@
                 // 1. avoid hijacking from ISPs, namely, CMCC, China Telecom
                 if (self != top)
                     top.location = self.location;
-                var reqLoc = new XMLHttpRequest();
-                reqLoc.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",
-                        true); // true for async
-                // do not wait for response, as some request comes from behind the GWF
-                reqLoc.onreadystatechange = function () {
-                    if (reqLoc.readyState == 4 && reqLoc.status == 200)
-                        Webface.location = JSON.parse(reqLoc.responseText);
-                };
-                reqLoc.send(null);
-
+                // 2. jsonp for i18n pkg
+                // localLang: {}, set by jsonp
+                // the i18n files are store on CDN, not on any dynamic server.
                 var url = Webface.geti18nURL(Webface.status.lang);
                 if (url) {
                     var script = document.createElement('script');
                     script.setAttribute('src', url);
                     document.getElementsByTagName('head')[0].appendChild(script);
-                }
-                window.onload = function() {
-                    Webface.localize();
+                    window.onload = function() {
+                        Webface.localize();
+                    }
                 }
             }
         };
@@ -326,15 +322,17 @@
 <!--<script type="application/javascript" src="asset/js/bootstrap.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<script type="application/javascript" src="asset/js/jquery.easing.1.3.js"></script> <!-- CDN min -->
-
+<!--<script type="application/javascript" src="asset/js/jquery.easing.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <!--<script type="application/javascript" src="asset/js/headroom.js"></script>-->
 <script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.min.js"></script>
 
 <script type="application/javascript" src="asset/js/jqBootstrapValidation.js"></script>
 
-<script type="application/javascript" src="asset/js/spin.min.js"></script> <!-- merge -->
-<script type="application/javascript" src="asset/js/ladda.min.js"></script> <!-- merge -->
+<!--<script type="application/javascript" src="asset/js/spin.min.js"></script> &lt;!&ndash; merge &ndash;&gt;-->
+<!--<script type="application/javascript" src="asset/js/ladda.min.js"></script> &lt;!&ndash; merge &ndash;&gt;-->
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js"></script>
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js"></script>
 
 <script type="application/javascript" src="asset/js/webface.min.js"></script>
 

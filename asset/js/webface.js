@@ -1,36 +1,51 @@
-Webface.localize = function () {
-    if (Webface.localLang) {
-        $('.i18n-txt').each(function () {
-            var key = $(this).attr("data-i18n-key");
-            if (key) {
-                var localPhrase = Webface.localLang[key];
-                if (localPhrase)
-                    $(this).html(localPhrase);
-            }
-        });
-        $(".i18n-txt-p").each(function () {
-            var key = $(this).attr("data-i18n-key");
-            if (key) {
-                var localPhrase = Webface.localLang[key];
-                if (localPhrase)
-                    $(this).attr("placeholder", localPhrase);
-            }
-        });
+Webface = {
+    localize: function () {
+        if (Webface.localLang) {
+            $('.i18n-txt').each(function () {
+                var key = $(this).attr("data-i18n-key");
+                if (key) {
+                    var localPhrase = Webface.localLang[key];
+                    if (localPhrase)
+                        $(this).html(localPhrase);
+                }
+            });
+            $(".i18n-txt-p").each(function () {
+                var key = $(this).attr("data-i18n-key");
+                if (key) {
+                    var localPhrase = Webface.localLang[key];
+                    if (localPhrase)
+                        $(this).attr("placeholder", localPhrase);
+                }
+            });
+        }
+    },
+    encodeQueryData: function (map) {
+        var ret = [];
+        for (var d in map)
+            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
+        return ret.join("&");
+    },
+    escapeHTML: function (str) {
+        return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+    },
+    countVisit: function () {
+        var reqLoc = new XMLHttpRequest();
+        reqLoc.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",
+            true); // true for async
+        // do not wait for response, as some request comes from behind the GWF
+        reqLoc.onreadystatechange = function () {
+            if (reqLoc.readyState == 4 && reqLoc.status == 200)
+                Webface.location = JSON.parse(reqLoc.responseText);
+        };
+        reqLoc.send(null);
     }
 };
-Webface.encodeQueryData = function (map) {
-    var ret = [];
-    for (var d in map)
-        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
-    return ret.join("&");
-};
-Webface.escapeHTML = function (str) {
-    return str.replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;")
-};
+
+Webface.countVisit();
 
 $( document ).ready(function() {
 // cached
@@ -102,7 +117,7 @@ $( document ).ready(function() {
                     } else {
                         title = Webface.localLang["contactMsg-error-title"] || "Oops, could send the message.";
                         promptModalTitle.html(title);
-                        msg = Webface.localLang["contactMsg-error-msg"] || "plase contact me via <a href=\"mailto:feedback2bowen@outlook.com\">feedback2bowen@outlook.com</a>.";
+                        msg = Webface.localLang["contactMsg-error-msg"] || "plase contact me via <a href='mailto:feedback2bowen@outlook.com'>feedback2bowen@outlook.com</a>.";
                         promptModalMsg.html(msg);
                     }
                     $("#modal_send").modal();
@@ -120,10 +135,10 @@ $( document ).ready(function() {
                     lad_send.stop();
                 }
             });
-
         },
         filter: function () {
             return $(this).is(":visible");
         }
     });
+
 });
