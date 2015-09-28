@@ -10,16 +10,14 @@
     <meta property="og:site_name" content="Bowen Cai's Home Page"/>
     <meta property="og:locale" content="en_US"/>
 
-    <link rel="dns-prefetch" href="">
-    <link rel="prefetch" href=""/>
+    <link rel="dns-prefetch" href="http://ajax.aspnetcdn.com">
+    <link rel="dns-prefetch" href="http://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="http://maxcdn.bootstrapcdn.com">
 
-    <link rel="icon" type="image/ico" href=""/>
-
-    <link rel="stylesheet" href="asset/css/bootstrap.min.css"/> <!-- CDN min -->
-    <link rel="stylesheet" href="asset/css/font-awesome.min.css" /> <!-- CDN min -->
-    <link rel="stylesheet" href="asset/css/ladda.min.css"/>
-    <link rel="stylesheet" href="asset/css/webface.css"> <!-- inline -->
-
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.css">-->
+    <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- including ladda css -->
 
     <title>Page Not Found - Bowen Cai</title>
 
@@ -81,8 +79,6 @@
     </div>
 </section>
 
-
-
 <footer class="text-center bg-navfoot">
     <div class="container">
         <div class="row">
@@ -93,23 +89,29 @@
     </div>
 </footer>
 
-<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-top page-scroll visible-xs visible-sm">
     <a class="btn btn-primary" href="#body-top">
-        <i class="fa fa-chevron-up"></i>
+        <i class="glyphicon glyphicon-chevron-up"></i>
     </a>
 </div>
 
 
-<script type="application/javascript" src="asset/js/jquery-1.8.3.js"></script> <!-- CDN min -->
+<!--<script type="application/javascript" src="asset/js/jquery-1.11.3.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
+<script type="application/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<!--<script type="application/javascript" src="asset/js/bootstrap.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<script type="application/javascript" src="asset/js/jquery.easing.1.3.js"></script> <!-- CDN min -->
-<script type="application/javascript" src="asset/js/bootstrap.min.js"></script> <!-- CDN min -->
+<!--<script type="application/javascript" src="asset/js/jquery.easing.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<!--<script type="application/javascript" src="asset/js/headroom.js"></script>-->
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.min.js"></script>
 
-<script type="application/javascript" src="asset/js/headroom.js"></script> <!-- inline -->
 <script type="application/javascript" src="asset/js/jqBootstrapValidation.js"></script>
-<script type="application/javascript" src="asset/js/spin.min.js"></script>
-<script type="application/javascript" src="asset/js/ladda.min.js"></script>
+
+<!--<script type="application/javascript" src="asset/js/spin.min.js"></script> &lt;!&ndash; merge &ndash;&gt;-->
+<!--<script type="application/javascript" src="asset/js/ladda.min.js"></script> &lt;!&ndash; merge &ndash;&gt;-->
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js"></script>
+<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js"></script>
 
 <script>
     var thisurl = window.location.href;

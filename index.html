@@ -16,17 +16,15 @@
     <link rel="dns-prefetch" href="http://maxcdn.bootstrapcdn.com">
 
     <!--<link rel="prefetch" href=""/>-->
-    <!--<link rel="icon" type="image/ico" href=""/>-->
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
 
     <!--<link rel="stylesheet" href="asset/css/bootstrap.min.css"/> &lt;!&ndash; CDN min &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="asset/css/font-awesome.min.css" /> &lt;!&ndash; CDN min &ndash;&gt;-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!--<link rel="stylesheet" href="asset/css/ladda.min.css"/>-->
     <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.css">-->
 
-    <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- merge -->
+    <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- including ladda css -->
 
     <title class="i18n-txt" data-i18n-key="page-title">Bowen Cai - Phd Student at Texas A&amp;M </title>
 
@@ -82,7 +80,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand i18n-txt" href="#body-top" data-i18n-key="author-name">Bowen Cai</a>
+            <a class="col-xs-2 col-sm-1 col-md-3" href="https://parasol.tamu.edu">
+                <img class="img-responsive" src="asset/img/tamu-logo-white.png">
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -164,11 +164,6 @@
             <div class="col-lg-4">
                 <p>Website currently under construction</p>
             </div>
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <a href="#" class="btn btn-lg btn-outline">
-                    <i class="fa fa-download"></i> Download Papers
-                </a>
-            </div>
         </div>
     </div>
 </section>
@@ -187,7 +182,7 @@
                 <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
                     <div class="portfolio-hover">
                         <div class="portfolio-hover-content">
-                            <i class="fa fa-search-plus fa-3x"></i>
+                            <i>class="fa fa-search-plus fa-3x"</i>
                         </div>
                     </div>
                     <img src="https://dl.dropboxusercontent.com/s/iklpmr1jdyktdn2/gplume_struture.jpg" class="img-responsive" alt="">
@@ -201,7 +196,7 @@
                 <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                     <div class="portfolio-hover">
                         <div class="portfolio-hover-content">
-                            <i class="fa fa-search-plus fa-3x"></i>
+                            <i >class="fa fa-search-plus fa-3x"</i>
                         </div>
                     </div>
                     <img src="https://dl.dropboxusercontent.com/s/hrji1a2phi605x0/edit.JPG" class="img-responsive" alt="">
@@ -215,7 +210,7 @@
                 <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
                     <div class="portfolio-hover">
                         <div class="portfolio-hover-content">
-                            <i class="fa fa-search-plus fa-3x"></i>
+                            <i> class="fa fa-search-plus fa-3x"</i>
                         </div>
                     </div>
                     <img src="https://dl.dropboxusercontent.com/s/0xsqvui990n8vig/Starter_Maps.png" class="img-responsive" alt="">
@@ -297,7 +292,7 @@
 <!-- Scroll to Top Button, Only visible on small and extra-small screen-->
 <div class="scroll-top page-scroll visible-xs visible-sm">
     <a class="btn btn-primary" href="#body-top">
-        <i class="fa fa-chevron-up"></i>
+        <i class="glyphicon glyphicon-chevron-up"></i>
     </a>
 </div>
 
@@ -333,7 +328,7 @@
 <!--<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js"></script>-->
 <!--<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js"></script>-->
 
-<script type="application/javascript" src="asset/js/webface.min.js"></script>
+<script type="application/javascript" src="asset/js/webface.min.js"></script> <!-- including jquery-easing, headroom, spin and ladda -->
 
 </body>
 
