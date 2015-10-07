@@ -20,9 +20,19 @@
             status: {
                 lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
             },
+            getParam: function (name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            },
             geti18nURL: function (lang) {
-                var langCode = lang.substr(0, 2).toLowerCase();
-                var areaCode = lang.substr(3, 99).toLowerCase();
+                var langCode = Webface.getParam("lang");// iso-639
+                var areaCode = Webface.getParam("country"); // iso-3166
+                if (!langCode)
+                    langCode = lang.substr(0, 2).toLowerCase();
+                if (!areaCode)
+                    areaCode = lang.substr(3, 99).toLowerCase();
                 if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
                     if (areaCode == "cn" || areaCode == "sg" || areaCode == "chs" || areaCode == "")
                         return "asset/i18n/zh-chs.js";
@@ -333,6 +343,7 @@
 <!--<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js"></script>-->
 <!--<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js"></script>-->
 
+<!--<script type="application/javascript" src="asset/js/webface.js"></script>-->
 <script type="application/javascript" src="asset/js/webface.min.js"></script> <!-- including jquery-easing, headroom, spin and ladda -->
 
 </body>

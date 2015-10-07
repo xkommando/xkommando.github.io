@@ -1,53 +1,51 @@
-Webface = {
-    localize: function () {
-        if (Webface.localLang) {
-            $('.i18n-txt').each(function () {
-                var key = $(this).attr("data-i18n-key");
-                if (key) {
-                    var localPhrase = Webface.localLang[key];
-                    if (localPhrase)
-                        $(this).html(localPhrase);
-                }
-            });
-            $(".i18n-txt-p").each(function () {
-                var key = $(this).attr("data-i18n-key");
-                if (key) {
-                    var localPhrase = Webface.localLang[key];
-                    if (localPhrase)
-                        $(this).attr("placeholder", localPhrase);
-                }
-            });
-        }
-    },
-    encodeQueryData: function (map) {
-        var ret = [];
-        for (var d in map)
-            ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
-        return ret.join("&");
-    },
-    escapeHTML: function (str) {
-        return str.replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;")
-    },
-    countVisit: function () {
-        var reqLoc = new XMLHttpRequest();
-        reqLoc.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",
-            true); // true for async
-        // do not wait for response, as some request comes from behind the GWF
-        reqLoc.onreadystatechange = function () {
-            if (reqLoc.readyState == 4 && reqLoc.status == 200)
-                Webface.location = JSON.parse(reqLoc.responseText);
-        };
-        reqLoc.send(null);
+Webface["localize"] = function () {
+    if (Webface.localLang) {
+        $('.i18n-txt').each(function () {
+            var key = $(this).attr("data-i18n-key");
+            if (key) {
+                var localPhrase = Webface.localLang[key];
+                if (localPhrase)
+                    $(this).html(localPhrase);
+            }
+        });
+        $(".i18n-txt-p").each(function () {
+            var key = $(this).attr("data-i18n-key");
+            if (key) {
+                var localPhrase = Webface.localLang[key];
+                if (localPhrase)
+                    $(this).attr("placeholder", localPhrase);
+            }
+        });
     }
+};
+Webface["encodeQueryData"] = function (map) {
+    var ret = [];
+    for (var d in map)
+        ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
+    return ret.join("&");
+};
+Webface["escapeHTML"] = function (str) {
+    return str.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+};
+Webface["countVisit"] = function () {
+    var reqLoc = new XMLHttpRequest();
+    reqLoc.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",
+        true); // true for async
+    // do not wait for response, as some request comes from behind the GWF
+    reqLoc.onreadystatechange = function () {
+        if (reqLoc.readyState == 4 && reqLoc.status == 200)
+            Webface.location = JSON.parse(reqLoc.responseText);
+    };
+    reqLoc.send(null);
 };
 
 Webface.countVisit();
 
-$( document ).ready(function() {
+$(document).ready(function () {
 // cached
     var $body = $('body');
 // jQuery for page scrolling feature - requires jQuery Easing plugin
@@ -140,5 +138,4 @@ $( document ).ready(function() {
             return $(this).is(":visible");
         }
     });
-
 });
