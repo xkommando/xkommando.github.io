@@ -14,19 +14,69 @@
     <link rel="dns-prefetch" href="http://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="http://maxcdn.bootstrapcdn.com">
 
-    <link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.css">-->
-    <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- including ladda css -->
+    <script>
+        var Webface = {
+            status: {
+                lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+            },
+            getParam: function (name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            },
+            geti18nURL: function (lang) {
+                var langCode = Webface.getParam("lang");// iso-639
+                var areaCode = Webface.getParam("country"); // iso-3166
+                if (!langCode)
+                    langCode = lang.substr(0, 2).toLowerCase();
+                if (!areaCode)
+                    areaCode = lang.substr(3, 99).toLowerCase();
+                if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
+                    if (areaCode == "cn" || areaCode == "sg" || areaCode == "chs" || areaCode == "")
+                        return "asset/i18n/zh-chs.js";
+                    else
+                        return "asset/i18n/zh-cht.js";
+                }
+                return null;
+            },
+            init : function() {
+                // 1. avoid hijacking from ISPs, namely, CMCC, China Telecom
+                if (self != top)
+                    top.location = self.location;
+                // 2. jsonp for i18n pkg
+                // localLang: {}, set by jsonp
+                // the i18n files are store on CDN, not on any dynamic server.
+                var url = Webface.geti18nURL(Webface.status.lang);
+                if (url) {
+                    var script = document.createElement('script');
+                    script.setAttribute('src', url);
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                    window.onload = function() {
+                        Webface.localize();
+                    }
+                }
+            }
+        };
+        Webface.init();
+    </script>
 
-    <title>Page Not Found - Bowen Cai</title>
+
+    <link rel="icon" type="image/ico" href="favicon.ico"/>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="asset/css/bootstrap.min.css"/> &lt;!&ndash; CDN min &ndash;&gt;-->
+    <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- inline -->
+
+
+    <title class="i18n-txt" data-i18n-key="page-title">Bowen Cai - Phd Student at Texas A&amp;M </title>
 
     <style>
         .action-404 {
             margin: 15px;
         }
         footer {
-            position: absolute;
+            position: relative;
             bottom: 0;
             left: 0;
             width: 100%;
@@ -71,47 +121,48 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div>
-                    <p>To ensure long term accessibility,</p>
-                    <p>This site going through some process and will have to be shutdown temporarily.</p>
+                    <h1>Ooooooooops!</h1>
+                    <h3>The page you are looking for</h3>
+                    <h3 id="url-404" class="text-danger">  </h3>
+                    <h3>is <i><em>nowhere</em></i> to be found.</h3>
+                    <h5 class="top-buffer-40"> Error 404, requested page not found.</h5>
+                </div>
+
+                <div class="top-buffer-20">
+                    <a href="http://www.caibowen.com" class="action-404 btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a>
+                    <a href="http://www.caibowen.com/#contact" class="action-404 btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+
+
 <footer class="text-center bg-navfoot">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                Copyright &copy; Bowen Cai 2015
+                Copyright &copy; Bowen Cai 2013 - 2015
             </div>
         </div>
     </div>
 </footer>
 
 <div class="scroll-top page-scroll visible-xs visible-sm">
-    <a class="btn btn-primary" href="#body-top">
+    <a class="btn bg-navfoot" href="#body-top">
         <i class="glyphicon glyphicon-chevron-up"></i>
     </a>
 </div>
 
 
-<!--<script type="application/javascript" src="asset/js/jquery-1.11.3.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
 <script type="application/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
-<!--<script type="application/javascript" src="asset/js/bootstrap.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<!--<script type="application/javascript" src="asset/js/jquery.easing.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
-<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-<!--<script type="application/javascript" src="asset/js/headroom.js"></script>-->
-<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.min.js"></script>
+<script type="application/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script type="application/javascript" src="asset/js/jqBootstrapValidation.js"></script>
 
-<!--<script type="application/javascript" src="asset/js/spin.min.js"></script> &lt;!&ndash; merge &ndash;&gt;-->
-<!--<script type="application/javascript" src="asset/js/ladda.min.js"></script> &lt;!&ndash; merge &ndash;&gt;-->
-<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/spin.min.js"></script>
-<script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js"></script>
+<script type="application/javascript" src="asset/js/webface.min.js"></script> <!-- including jquery-easing, headroom, spin and ladda -->
 
 <script>
     var thisurl = window.location.href;

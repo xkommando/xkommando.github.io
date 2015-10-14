@@ -1,4 +1,4 @@
-Webface["localize"] = function () {
+Webface.localize = function () {
     if (Webface.localLang) {
         $('.i18n-txt').each(function () {
             var key = $(this).attr("data-i18n-key");
@@ -18,21 +18,23 @@ Webface["localize"] = function () {
         });
     }
 };
-Webface["encodeQueryData"] = function (map) {
+Webface.encodeQueryData = function (map) {
     var ret = [];
     for (var d in map)
         ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(map[d]));
     return ret.join("&");
 };
-Webface["escapeHTML"] = function (str) {
+Webface.escapeHTML = function (str) {
     return str.replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;")
 };
-Webface["countVisit"] = function () {
+Webface.countVisit = function () {
     var reqLoc = new XMLHttpRequest();
+
+    //reqLoc.open("GET", "http://localhost:8080/api/location-pv-count?app-id=cbw-webface",
     reqLoc.open("GET", "http://webface-backend.appspot.com/api/location-pv-count?app-id=cbw-webface",
         true); // true for async
     // do not wait for response, as some request comes from behind the GWF

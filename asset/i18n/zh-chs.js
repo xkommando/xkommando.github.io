@@ -1,4 +1,4 @@
-Webface["localLang"] = {
+Webface.localLang = {
   "page-title": "蔡博文 - 得克萨斯A&M大学 博士生",
   "author-name": "蔡博文",
   "nav-about" : "介绍",
