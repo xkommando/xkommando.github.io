@@ -31,6 +31,17 @@ Webface.escapeHTML = function (str) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;")
 };
+Webface.getLocalLangOrElse = function(key, def) {
+    if (Webface.localLang) {
+        var v = Webface.localLang[key];
+        console.log(key + "   " + v);
+        if (v === undefined)
+            return def;
+        else
+            return v;
+    }
+    return def;
+};
 Webface.countVisit = function () {
     var reqLoc = new XMLHttpRequest();
 
@@ -101,6 +112,8 @@ $(document).ready(function () {
             var promptModalTitle = $("#modal_title");
             var promptModalMsg = $("#modal_msg");
 
+            var title_err =  "Oops, could send the message.";
+            var msg_err = "plase contact me via <a href='mailto:feedback2bowen@outlook.com'>feedback2bowen@outlook.com</a>.";
             var title;
             var msg;
             $.ajax({
@@ -109,26 +122,31 @@ $(document).ready(function () {
                 data: query,
                 timeout: 8000,
                 success: function (data) {
-                    if (data == 200) {
-                        title = Webface.localLang["contactMsg-200-title"] || "Message Sent Successfully.";
-                        promptModalTitle.html(title);
-                        msg = Webface.localLang["contactMsg-200-msg"] || "Thanks for your message, I will reply to you soon.";
-                        promptModalMsg.html(msg);
-                    } else {
-                        title = Webface.localLang["contactMsg-error-title"] || "Oops, could send the message.";
-                        promptModalTitle.html(title);
-                        msg = Webface.localLang["contactMsg-error-msg"] || "plase contact me via <a href='mailto:feedback2bowen@outlook.com'>feedback2bowen@outlook.com</a>.";
-                        promptModalMsg.html(msg);
+                    try {
+                        if (data == 200) {
+                            title = Webface.getLocalLangOrElse("contactMsg-200-title", "Message Sent Successfully.");
+                            msg = Webface.getLocalLangOrElse("contactMsg-200-msg", "Thanks for your message, I will reply to you soon.");
+                        } else {
+                            title = Webface.getLocalLangOrElse("contactMsg-error-title",  "Oops, could send the message.");
+                            msg = Webface.getLocalLangOrElse("contactMsg-error-msg", "plase contact me via <a href='mailto:feedback2bowen@outlook.com'>feedback2bowen@outlook.com</a>.");
+                        }
+                    } catch (err) {
+                        title = title_err;
+                        msg = msg_err;
                     }
+
+                    promptModalTitle.html(title);
+                    promptModalMsg.html(msg);
+
                     $("#modal_send").modal();
                     $('#contact_form').trigger("reset");
                     lad_send.stop();
                 },
                 error: function (data) {
-                    title = Webface.localLang["contactMsg-error-title"] || "Oops, could send the message.";
-                    promptModalTitle.html(title);
+                    title = Webface.getLocalLangOrElse("contactMsg-error-title", "Oops, could send the message.");
+                    msg = Webface.getLocalLangOrElse("net-error-msg", "network error plase check your connection, <p> Or contact me for help <a href='mailto:feedback2bowen@outlook.com'> feedback2bowen@outlook.com </a></p>");
 
-                    msg = Webface.localLang["net-error-msg"] || "network error plase check your connection, <p> Or contact me for help <a href='mailto:feedback2bowen@outlook.com'> feedback2bowen@outlook.com </a></p>";
+                    promptModalTitle.html(title);
                     promptModalMsg.html(msg);
 
                     $("#modal_send").modal();

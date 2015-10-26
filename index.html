@@ -20,15 +20,16 @@
             status: {
                 lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
             },
-            getParam: function (name) {
+            getURLParam: function (name) {
                 name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                 var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                         results = regex.exec(location.search);
                 return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
             },
             geti18nURL: function (lang) {
-                var langCode = Webface.getParam("lang");// iso-639
-                var areaCode = Webface.getParam("country"); // iso-3166
+                var langCode = Webface.getURLParam("lang");// iso-639
+                var areaCode = Webface.getURLParam("country"); // iso-3166
+                console.log(langCode + "  " + areaCode);
                 if (!langCode)
                     langCode = lang.substr(0, 2).toLowerCase();
                 if (!areaCode)
