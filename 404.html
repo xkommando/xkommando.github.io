@@ -33,7 +33,7 @@
                 if (!areaCode)
                     areaCode = lang.substr(3, 99).toLowerCase();
                 if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
-                    if (areaCode.indexOf("hk") != 0 || areaCode.indexOf("tw") != 0)
+                    if (areaCode.indexOf("hk") >= 0 || areaCode.indexOf("tw") >= 0)
                         return "asset/i18n/zh-cht.js";
                     else
                         return "asset/i18n/zh-chs.js";

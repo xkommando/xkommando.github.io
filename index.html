@@ -34,7 +34,7 @@
                 if (!areaCode)
                     areaCode = lang.substr(3, 99).toLowerCase();
                 if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
-                    if (areaCode.indexOf("hk") != 0 || areaCode.indexOf("tw") != 0)
+                    if (areaCode.indexOf("hk") >= 0 || areaCode.indexOf("tw") >= 0)
                         return "asset/i18n/zh-cht.js";
                     else
                         return "asset/i18n/zh-chs.js";
@@ -155,9 +155,9 @@
                     <p class="i18n-txt" data-i18n-key="intro-p3">My research interests includes Program analysis and Software engineering.</p>
 
                     <address class="top-buffer-40 i18n-txt" data-i18n-key="intro-addr">
-                        Tel: &nbsp;&nbsp;&nbsp;&nbsp;<i> (979) 985-6333 </i><br>
-                        Email:&nbsp;<i> bowen.cai@tamu.edu </i><br>
-                        Office:&nbsp; 419C <a href="http://aggiemap.tamu.edu/?bldg=0353">HRBB</a> <br>
+                        Tel: &nbsp;&nbsp;&nbsp;&nbsp;<i> <a href="tel:+19799856333" target="_blank"> (979) 985-6333 </a></i><br>
+                        Email:&nbsp;<i> <a href='mailto:bowen.cai@tamu.edu' target='_blank'>bowen.cai@tamu.edu </a> </i><br>
+                        Office:&nbsp; 419C <a href="http://aggiemap.tamu.edu/?bldg=0353" target="_blank" rel="nofollow">HRBB</a> <br>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         College Station, TX 77843-3112, USA
                     </address>
