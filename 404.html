@@ -10,41 +10,44 @@
     <meta property="og:site_name" content="Bowen Cai's Home Page"/>
     <meta property="og:locale" content="en_US"/>
 
-    <link rel="dns-prefetch" href="http://ajax.aspnetcdn.com">
-    <link rel="dns-prefetch" href="http://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="http://maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="https://ajax.aspnetcdn.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://maxcdn.bootstrapcdn.com">
 
     <script>
         var Webface = {
             status: {
                 lang: navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
             },
-            getParam: function (name) {
+            getURLParam: function (name) {
                 name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                 var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                         results = regex.exec(location.search);
                 return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
             },
             geti18nURL: function (lang) {
-                var langCode = Webface.getParam("lang");// iso-639
-                var areaCode = Webface.getParam("country"); // iso-3166
+                var langCode = Webface.getURLParam("lang");// iso-639
+                var areaCode = Webface.getURLParam("country"); // iso-3166
                 if (!langCode)
                     langCode = lang.substr(0, 2).toLowerCase();
                 if (!areaCode)
                     areaCode = lang.substr(3, 99).toLowerCase();
                 if (langCode == "zh" || langCode == "chi" || langCode == "zho") {
-                    if (areaCode == "cn" || areaCode == "sg" || areaCode == "chs" || areaCode == "")
-                        return "asset/i18n/zh-chs.js";
-                    else
+                    if (areaCode.indexOf("hk") != 0 || areaCode.indexOf("tw") != 0)
                         return "asset/i18n/zh-cht.js";
+                    else
+                        return "asset/i18n/zh-chs.js";
                 }
                 return null;
             },
             init : function() {
-                // 1. avoid hijacking from ISPs, namely, CMCC, China Telecom
+                // enforce https
+                if (window.location.protocol != "https:")
+                    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+                //  avoid hijacking from ISPs, namely, CMCC, China Telecom
                 if (self != top)
                     top.location = self.location;
-                // 2. jsonp for i18n pkg
+                //  jsonp for i18n pkg
                 // localLang: {}, set by jsonp
                 // the i18n files are store on CDN, not on any dynamic server.
                 var url = Webface.geti18nURL(Webface.status.lang);
@@ -61,10 +64,9 @@
         Webface.init();
     </script>
 
-
     <link rel="icon" type="image/ico" href="favicon.ico"/>
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!--<link rel="stylesheet" href="asset/css/bootstrap.min.css"/> &lt;!&ndash; CDN min &ndash;&gt;-->
     <link rel="stylesheet" href="asset/css/webface.min.css"> <!-- inline -->
 
@@ -129,9 +131,9 @@
                 </div>
 
                 <div class="top-buffer-20">
-                    <a href="http://www.caibowen.com" class="action-404 btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                    <a href="https://www.caibowen.com" class="action-404 btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
                         Take Me Home </a>
-                    <a href="http://www.caibowen.com/#contact" class="action-404 btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                    <a href="https://www.caibowen.com/#contact" class="action-404 btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
                 </div>
             </div>
         </div>
@@ -157,8 +159,8 @@
 </div>
 
 
-<script type="application/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
-<script type="application/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="application/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script type="application/javascript" src="asset/js/jqBootstrapValidation.js"></script>
 
