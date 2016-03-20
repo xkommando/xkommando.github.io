@@ -43,8 +43,8 @@
             },
             init : function() {
                 // enforce https
-                if (window.location.protocol != "https:")
-                    window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+               // if (window.location.protocol != "https:")
+              //      window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
                 //  avoid hijacking from ISPs, namely, CMCC, China Telecom
                 if (self != top)
                     top.location = self.location;
