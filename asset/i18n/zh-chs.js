@@ -8,7 +8,7 @@ Webface.localLang = {
   "contact-head":"留言",
   "intro-p1":"我是美国<a href='http://www.tamu.edu' target='_blank'>得克萨斯A&M大学</a>的一年级博士生，目前在<a href='https://parasol.tamu.edu' target='_blank'> Parasol 实验室</a>下的<a href='https://parasol.tamu.edu/groups/huangroup' target='_blank'>ASER Group</a>小组中工作，导师是<a href=\"https://parasol.tamu.edu/people/jeff/\" target='_blank'>Dr.Jeff Huang</a>。",
   "intro-p2":"我在2015年从<a href='http://www.nwpu.edu.cn/' target='_blank'>西北工业大学</a>毕业，专业是软件工程。目前的主要研究方向包括程序分析和编程语言。",
-  "intro-addr":"电话:&nbsp;&nbsp;&nbsp; <i> <a href='tel:+19799856333' target='_blank'> +1 979 985 6333 </a></i> <br>邮箱: &nbsp;&nbsp;&nbsp; <i> <a href='mailto:bowen.cai@tamu.edu' target='_blank'>bowen.cai@tamu.edu </a></i> <br>办公室: 419C <a href='http://aggiemap.tamu.edu/?bldg=0353' rel='nofollow' target='_blank'>HRBB</a> (<a href='http://osm.org/go/Ts9q_AB3s'>地图</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;College Station, TX 77843-3112, USA",
+  "intro-addr":"电话:&nbsp;&nbsp;&nbsp; <i> <a href='tel:+19799856333' target='_blank'> +1 979 985 6333 </a></i> <br>邮箱: &nbsp;&nbsp;&nbsp; <i> <a href='mailto:bowen.cai@tamu.edu' target='_blank'>bowen.cai@tamu.edu </a></i> <br>办公室: 419C <a href='http://aggiemap.tamu.edu/?bldg=0353' rel='nofollow' target='_blank'>HRBB</a> (<a href='http://osm.org/go/Ts9q_AB3s' target='_blank'>地图</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;College Station, TX 77843-3112, USA",
   "__test":"http://www.nwpu.edu.cn/",
   "gwf-error":"抱歉，您所在的地区无法连接后台服务器。",
   "contact-name":"姓名",
