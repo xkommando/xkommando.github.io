@@ -14,7 +14,6 @@
     <link rel="dns-prefetch" href="https://ajax.aspnetcdn.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://maxcdn.bootstrapcdn.com">
-    <!--<link rel="prefetch" href=""/>-->
     <script>
         var Webface = {
             status: {
@@ -41,13 +40,15 @@
                 }
                 return null;
             },
-            init: function () {
-                // enforce https
+            enforce_https : function () {
                 if (window.location.protocol != "https:")
                     window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
                 //  avoid hijacking from ISPs, namely, CMCC, China Telecom
                 if (self != top)
                     top.location = self.location;
+            },
+            init: function () {
+                Webface.enforce_https();
                 //  jsonp for i18n pkg
                 // localLang: {}, set by jsonp
                 // the i18n files are store on CDN, not on any dynamic server.
@@ -62,7 +63,8 @@
                 }
             }
         };
-        //        Webface.init();
+        Webface.enforce_https();
+       // Webface.init();
     </script>
 
     <link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
@@ -103,7 +105,15 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="modal_jump" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span class="h4">Jump to <strong>Linkedin</strong> in <span class="h4 lead" id="modal_timer"></span> seconds.</span>
+            </div>
+        </div>
+    </div>
+</div>
 <!--<script type="application/javascript" src="asset/js/jquery-1.11.3.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
 <script type="application/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
 <!--<script type="application/javascript" src="asset/js/bootstrap.min.js"></script> &lt;!&ndash; CDN min &ndash;&gt;-->
@@ -123,8 +133,26 @@
 <!--<script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/0.9.8/ladda.min.js"></script>-->
 
 <!--<script type="application/javascript" src="asset/js/webface.js"></script>-->
-<!-- <script type="application/javascript" src="asset/js/webface.min.js"></script> -->
-<!-- including jquery-easing, headroom, spin and ladda -->
+<script type="application/javascript" src="asset/js/webface.min.js"></script>
+<script>
+
+    var countdown = 4;
+    var modal_timer = $('#modal_timer');
+    setInterval(function () {
+        modal_timer.text(countdown);
+        countdown -= 1;
+    }, 1000);
+
+
+window.setTimeout(function() {
+    $('#modal_jump').modal({show:true});
+    console.log(countdown);
+
+    window.setTimeout(function() {
+        window.location.href = "https://www.linkedin.com/in/bowencai";
+    }, 3000);
+}, 2000);
+</script>
 
 </body>
 </html>
